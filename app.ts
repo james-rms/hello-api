@@ -4,6 +4,7 @@ import { Database } from "sqlite3";
 
 async function main() {
   const app = express();
+  app.use(express.json());
   const port = 8090;
   const db = await open({
     filename: ":memory:",
@@ -12,8 +13,8 @@ async function main() {
 
   // initialize DB here
   {
-    await db.run("create table users (name text)");
-    await db.run("insert into users values (?)", ["(your name here)"]);
+    await db.run("create table users (id integer primary key, name text)");
+    await db.run("insert into users (name) values (?)", ["(your name here)"]);
   }
 
   // set up route handlers here
